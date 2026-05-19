@@ -7,7 +7,7 @@ namespace libeasyansi {
         #ifdef _WIN32
         return os << "`e[" << code << "m";
         #else
-        return os << "\033[" << code;
+        return os << "\033[" << code << "m";
         #endif
  }
 }
