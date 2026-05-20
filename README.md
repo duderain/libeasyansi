@@ -7,6 +7,7 @@ A simple header-only wrapper for ANSI escape codes so you don't have to account 
 Very easy to use, and will automatically set the terminal to ANSI code accepting if you compile for windows.
 ```cpp
 int main(){
-    std::cout << easyansi::invert << easyansi::ansi("32") << "this is the power of libeasyansi!" << easyansi::reset << std::endl;
+    std::cout << easyansi::invert << easyansi::ansi("32") << "this is the power of libeasyansi!" << easyansi::resetGraphics("7") << easyansi::italics <<" + with ease of access" << easyansi::reset << std::endl;
+    return 0;
 }
 ```
