@@ -2,6 +2,9 @@
 #include <iostream>
 #include <string>
 
+#define TEMPLATE template <class CharT, class TraitsT>
+#define OUT std::basic_ostream<CharT, TraitsT>
+
 #ifdef _WIN32
 #include <windows.h>
 #endif
@@ -31,6 +34,16 @@ namespace easyansi {
 
     inline std::ostream& operator<<(std::ostream& os, const ansi& a){
         return os << "\033[" << a.code << "m";
+    }
+
+    TEMPLATE
+    OUT &reset(OUT &os){
+        return os << "\033[0m";
+    }
+
+    TEMPLATE
+    OUT &invert(OUT &os){
+        return os << "\033[7m";
     }
     
 }
