@@ -14,7 +14,8 @@ namespace easyansi {
 
     #ifdef _WIN32
 
-    struct windowsInitalizer { 
+    class windowsInitalizer { 
+    private:
         windowsInitalizer() {
             HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
             DWORD dwMode = 0;
@@ -24,7 +25,7 @@ namespace easyansi {
             }
         }
     };
-     easyansi::windowsInitalizer dummy;
+    easyansi::windowsInitalizer dummy;
     #endif
 
     class ansi{
@@ -53,12 +54,15 @@ namespace easyansi {
         return os << "\033[3m";
     }
 
-    struct resetGraphics {
-        std::string code;
-        explicit resetGraphics(std::string c) : code(std::move(c)) {}
+    class resetGraphics{
+        public:
+            explicit resetGraphics(std::string c) : code(std::move(c)) {}
+
+            friend std::ostream& operator<<(std::ostream& os, const resetGraphics& a){
+                return os << "\033[2" << a.code << "m";
+            };
+        private:
+            std::string code;
     };
-    
-    inline std::ostream& operator<<(std::ostream &os, const resetGraphics& a){
-        return os << "\033[2" << a.code << "m";
-    }
+
 }
