@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <utility>
 
 #define TEMPLATE template <class CharT, class TraitsT>
 #define OUT std::basic_ostream<CharT, TraitsT>
@@ -26,15 +27,16 @@ namespace easyansi {
      easyansi::windowsInitalizer dummy;
     #endif
 
+    class ansi{
+        public:
+            explicit ansi(std::string c) : code(std::move(c)) {}
 
-    struct ansi {
-        std::string code;
-        explicit ansi(std::string c) : code(std::move(c)) {}
+            friend std::ostream& operator<<(std::ostream& os, const ansi& a){
+                return os << "\033[" << a.code << "m";
+            };
+        private:
+            std::string code;
     };
-
-    inline std::ostream& operator<<(std::ostream& os, const ansi& a){
-        return os << "\033[" << a.code << "m";
-    }
 
     TEMPLATE
     OUT &reset(OUT &os){
@@ -45,5 +47,18 @@ namespace easyansi {
     OUT &invert(OUT &os){
         return os << "\033[7m";
     }
+
+    TEMPLATE
+    OUT &italics(OUT &os){
+        return os << "\033[3m";
+    }
+
+    struct resetGraphics {
+        std::string code;
+        explicit resetGraphics(std::string c) : code(std::move(c)) {}
+    };
     
+    inline std::ostream& operator<<(std::ostream &os, const resetGraphics& a){
+        return os << "\033[2" << a.code << "m";
+    }
 }
