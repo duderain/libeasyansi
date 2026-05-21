@@ -28,6 +28,20 @@ namespace easyansi {
     easyansi::windowsInitalizer dummy;
     #endif
 
+
+    enum class colour : u_int{
+        black,
+        red,
+        green,
+        yellow,
+        blue,
+        magenta,
+        cyan,
+        white,
+        defaultColour = 9
+    };
+
+
     class ansi{
         public:
             explicit ansi(std::string c) : code(std::move(c)) {}
@@ -63,6 +77,24 @@ namespace easyansi {
             };
         private:
             std::string code;
+    };
+
+    class setColour{
+        public:
+            explicit setColour(easyansi::colour c) : colour(std::move(c)) {}
+
+            friend std::ostream& operator<<(std::ostream& os, const setColour& a){
+                if(a.background){
+                    std::string number = "4";
+                }
+                else{
+                    std::string number = "3";
+                }
+                return os << "\033[2" << std::to_string(static_cast<int>(a.colour)) << "m";
+            };
+        private:
+            easyansi::colour colour;
+            bool background;
     };
 
 }
