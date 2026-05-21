@@ -81,16 +81,17 @@ namespace easyansi {
 
     class setColour{
         public:
-            explicit setColour(easyansi::colour c) : colour(std::move(c)) {}
+            explicit setColour(easyansi::colour c, bool bg = false) : colour(std::move(c)), background(bg) {}
 
             friend std::ostream& operator<<(std::ostream& os, const setColour& a){
+                std::string number;
                 if(a.background){
-                    std::string number = "4";
+                    number = "4";
                 }
                 else{
-                    std::string number = "3";
+                    number = "3";
                 }
-                return os << "\033[2" << std::to_string(static_cast<int>(a.colour)) << "m";
+                return os << "\033[" << number << std::to_string(static_cast<int>(a.colour)) << "m";
             };
         private:
             easyansi::colour colour;
