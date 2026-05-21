@@ -41,7 +41,7 @@ namespace easyansi {
         defaultColour = 9
     };
 
-
+    //Basic class to wrap a string as a ansi code.
     class ansi{
         public:
             explicit ansi(std::string c) : code(std::move(c)) {}
@@ -52,22 +52,35 @@ namespace easyansi {
         private:
             std::string code;
     };
-
+    //Resets graphics.
     TEMPLATE
     OUT &reset(OUT &os){
         return os << "\033[0m";
     }
-
+    //Inverts the colours so fg is bg and bg is fg.
     TEMPLATE
     OUT &invert(OUT &os){
         return os << "\033[7m";
     }
-
+    //Makes the text italic.
     TEMPLATE
     OUT &italics(OUT &os){
         return os << "\033[3m";
     }
 
+    //Makes the text bold.
+    TEMPLATE
+    OUT &bold(OUT &os){
+        return os << "\033[1m";
+    }
+    
+    //Underlines the text.
+    TEMPLATE
+    OUT &underline(OUT &os){
+        return os << "\033[4m";
+    }
+
+    //Resets a specific attribute.
     class resetGraphics{
         public:
             explicit resetGraphics(std::string c) : code(std::move(c)) {}
@@ -78,7 +91,7 @@ namespace easyansi {
         private:
             std::string code;
     };
-
+    //Sets Colour.
     class setColour{
         public:
             explicit setColour(easyansi::colour c, bool bg = false) : colour(std::move(c)), background(bg) {}
