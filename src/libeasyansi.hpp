@@ -33,7 +33,7 @@ namespace easyansi {
     #ifdef _WIN32
 
     class windowsInitalizer { 
-    private:
+    public:
         windowsInitalizer() {
             HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
             DWORD dwMode = 0;
