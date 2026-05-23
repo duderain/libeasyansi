@@ -98,6 +98,12 @@ namespace easyansi {
         return os << "\033[4m";
     }
 
+    //Makes text invisible
+    TEMPLATE
+    OUT &invisible(OUT &os){
+        return os << "\033[8m";
+    }
+
     //Resets a specific attribute.
     class resetGraphics{
         public:
